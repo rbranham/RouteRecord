@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "30208185686",
+    "firebase_url": "https://routerecord-88788.firebaseio.com",
+    "project_id": "routerecord-88788",
+    "storage_bucket": "routerecord-88788.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30208185686:android:ec0651b614ecef90",
+        "android_client_info": {
+          "package_name": "com.branham.roger.routerecord"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "30208185686-2fu4iagqcgd2db3v7dcf8ipbss6ejqru.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.branham.roger.routerecord",
+            "certificate_hash": "113a0cb3a8d32cca063a63aa07f3b59ff156744e"
+          }
+        },
+        {
+          "client_id": "30208185686-44oimukvnf4skfdfuvdt44h34ojpdth2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMnQagTJLzjhj9775qk-AnR_I_2Y3LhHk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "30208185686-44oimukvnf4skfdfuvdt44h34ojpdth2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
