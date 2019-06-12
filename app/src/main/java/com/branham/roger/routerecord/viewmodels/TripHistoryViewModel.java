@@ -28,7 +28,7 @@ public class TripHistoryViewModel extends ViewModel {
         }
         //mRepo = SampleRepository.getInstance();
         //mTrips = mRepo.getTrips();
-        mTrips = FirebaseDbUtils.getAllTrips(); //TODO: Change FirebaseDBUtils to singleton?
+        mTrips = FirebaseDbUtils.getUserTrips(); //TODO: Change FirebaseDBUtils to singleton?
     }
 
     public LiveData<ArrayList<Trip>> getTrips(){

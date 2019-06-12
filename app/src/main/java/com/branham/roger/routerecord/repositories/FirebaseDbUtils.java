@@ -69,6 +69,7 @@ public class FirebaseDbUtils {
         final MutableLiveData<ArrayList<Trip>> data = new MutableLiveData<>();
 
         db.collection(TripContract.tripDB.COLLECTION_NAME) //TODO: Not getting run??
+                .whereEqualTo("creator", FirebaseAuth.getInstance().getCurrentUser().getUid() )
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -85,17 +86,20 @@ public class FirebaseDbUtils {
                             Log.d(TAG, "getUserTrips: Error getting documents: ", task.getException());
                         }
 
-                        data.setValue(dataSet); //Solved My issues
+                        data.setValue(dataSet);
                     }
                 });
 
-        data.setValue(dataSet); //Initial
+        data.setValue(dataSet); //Initially gets returned empty until live data get updated and finished
 
         return data;
     }
 
-    /**Function to pull all user's jobs from last two weeks*/  //TODO: should eventually change to caching last two weeks
-    public static ArrayList<Trip> getUserTripsLastTwoWeeks(){
+    /**Function to pull user's last 20 jobs from*/  //TODO: should eventually change to caching last two weeks
+    public static ArrayList<Trip> getUserTripsLastTwentyInstances(){
+        //Sample code from Firebase Docs
+        //citiesRef.orderBy("name", Direction.DESCENDING).limit(3);
+
          return null; //TODO: getUserTripsLastTwoWeeks() stub
     }
 
