@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -35,6 +36,7 @@ public class FirebaseDbUtils {
     /**Function to add trip to FireStore Db */
     public static void addTrip(Trip trip){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        setSettings(db);
 
         final DocumentReference newTripRef =
                 db.collection(TripContract.tripDB.COLLECTION_NAME)
@@ -49,7 +51,7 @@ public class FirebaseDbUtils {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Log.d(TAG, "DocumentSnapshot added with ID: " + newTripRef.getId());
-                    //TODO: Some type of Conformation to user that data was added succesfully, Maybe SnackBar Message?
+                    //TODO: Some type of Conformation to user that data was added successfully, Maybe SnackBar Message?
                 }else {
 
                 }
@@ -58,18 +60,17 @@ public class FirebaseDbUtils {
 
     }
 
-
-
-    /**Function to pull all jobs from user*/
+    /**Function to pull all jobs from user only*/
     public static MutableLiveData<ArrayList<Trip>> getUserTrips() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        setSettings(db);
 
         Log.d(TAG, "getUserTrips: called");
         final ArrayList<Trip> dataSet = new ArrayList<>();
         final MutableLiveData<ArrayList<Trip>> data = new MutableLiveData<>();
 
-        db.collection(TripContract.tripDB.COLLECTION_NAME) //TODO: Not getting run??
-                .whereEqualTo("creator", FirebaseAuth.getInstance().getCurrentUser().getUid() )
+        db.collection(TripContract.tripDB.COLLECTION_NAME)
+                .whereEqualTo("creator", FirebaseAuth.getInstance().getCurrentUser().getUid() ) //TODO: make fields acseciable from one place, either string resourse or constants in class
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -110,12 +111,13 @@ public class FirebaseDbUtils {
     /**Function to pull all trips from db*/ //Just used for testing  //TODO: Not Completed
     public static MutableLiveData<ArrayList<Trip>> getAllTrips() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        setSettings(db);
 
         Log.d(TAG, "getAllTrips: called");
         final ArrayList<Trip> dataSet = new ArrayList<>();
         final MutableLiveData<ArrayList<Trip>> data = new MutableLiveData<>();
 
-        db.collection(TripContract.tripDB.COLLECTION_NAME) //TODO: Not getting run??
+        db.collection(TripContract.tripDB.COLLECTION_NAME)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -141,4 +143,17 @@ public class FirebaseDbUtils {
         return data;
     }
 
+    /**
+     * Quick method to set settings of FireStore to cache data
+     *  TODO: There has to be a better way to do this rather than calling everytime an instance of the db is called... Maybe on Sign in??
+     *  TODO: I don't think this is working anyways
+     * @param db
+     */
+    static public void setSettings(FirebaseFirestore db){
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
+                .build();
+
+        db.setFirestoreSettings(settings);
+    }
 }

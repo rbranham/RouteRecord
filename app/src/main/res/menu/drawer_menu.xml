@@ -15,6 +15,16 @@
             android:title="Trip History" />
 
         <item
+            android:id="@+id/nav_available_trips"
+            android:icon="@drawable/ic_available_trips"
+            android:title="Available Trips" />
+
+        <item
+            android:id="@+id/nav_future_trips"
+            android:icon="@drawable/ic_future_trips"
+            android:title="My Future Trips" />
+
+        <item
             android:id="@+id/nav_stats"
             android:icon="@drawable/ic_stats"
             android:title="Stats" />

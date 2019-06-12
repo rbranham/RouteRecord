@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Toast.makeText(MainActivity.this, "You're signed in", Toast.LENGTH_SHORT).show();
                 } else {
                     //LocalUser is signed out
-                    onSignedOutCleanup();
                     startActivityForResult(
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
@@ -117,6 +116,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //open trip history
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TripHistoryFragment()).commit();
                 break;
+            case R.id.nav_future_trips:
+                //open future trips
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FutureTripsFragment()).commit();
+                break;
             case R.id.nav_stats:
                 //open stats
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StatsFragment()).commit();
@@ -146,8 +149,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void onSignedOutCleanup(){
         mUser = null;
-        //TODO: Finish Sign out
-        FirebaseAuth.getInstance().signOut();// After Signing out, then back in in the same session doesn't work
+        //TODO: Clean up Fragments
+        FirebaseAuth.getInstance().signOut();
     }
 
 

@@ -9,22 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.branham.roger.routerecord.R;
 import com.branham.roger.routerecord.models.Trip;
 
 import java.util.ArrayList;
 
-public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
+public class FinishedTripAdapter extends RecyclerView.Adapter<FinishedTripAdapter.ViewHolder> {
 
-    private static final String TAG = "TripAdapter";
+    private static final String TAG = "FinishedTripAdapter";
 
     //TODO: Stopped at 11:35ish in coding with Mitch Recyclerview Tutorial
     private ArrayList<Trip> mTrips = new ArrayList<>();
     private Context mContext;
 
-    public TripAdapter(Context context, ArrayList<Trip> tripList){
+    public FinishedTripAdapter(Context context, ArrayList<Trip> tripList){
         mTrips = tripList;
         mContext = context;
 
