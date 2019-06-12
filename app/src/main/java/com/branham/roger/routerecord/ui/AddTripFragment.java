@@ -97,8 +97,12 @@ public class AddTripFragment extends Fragment implements DatePickerDialog.OnDate
     }
 
     /**function to pull data from all of the input fields*/
-    private void pullDataFromFields(){
+    private void pullDataFromFields(){ //TODO: Break input to each field into helper methods
         Trip trip = new Trip();
+
+        //Set Booleans
+        trip.setCompleted(true);
+        trip.setAvailable(false);
 
         //Pull Name field
         String name = mNameTextField.getText().toString().trim();
@@ -149,7 +153,7 @@ public class AddTripFragment extends Fragment implements DatePickerDialog.OnDate
         trip.setDate(currentDateString);
 
         //Insert into Database
-        FirebaseDbUtils.addTrip(trip); //TODO: Get confirmation?
+        FirebaseDbUtils.addCompletedTrip(trip); //TODO: Get confirmation?
 
         //clear input fields
         clearFields();

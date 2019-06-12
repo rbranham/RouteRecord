@@ -33,32 +33,47 @@ public class FirebaseDbUtils {
 
 
 
-    /**Function to add trip to FireStore Db */
-    public static void addTrip(Trip trip){
+    /**Function to add already completed trip to FireStore Db */
+    public static void addCompletedTrip(Trip trip) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         setSettings(db);
 
         final DocumentReference newTripRef =
                 db.collection(TripContract.tripDB.COLLECTION_NAME)
-                .document();
+                        .document();
 
+        //This add trip only works for when driver adds own trip
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         trip.setCreator(userID);
+        trip.setDriver(userID);
+
         trip.setTime_created(null);
 
         newTripRef.set(trip).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Log.d(TAG, "DocumentSnapshot added with ID: " + newTripRef.getId());
                     //TODO: Some type of Conformation to user that data was added successfully, Maybe SnackBar Message?
-                }else {
+                } else {
 
                 }
             }
         });
+    }
+
+    /**Function to add uncompleted trip to database*/
+    public static void addAvailibleTrip(Trip trip) {
+        //TODO: add rest of boilerplate code from above
+
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        trip.setCreator(userID);
+        trip.setDriver(null); //No Driver yet
+
+        //TODO: move rest of boilerplate code to new helper function
 
     }
+
 
     /**Function to pull all jobs from user only*/
     public static MutableLiveData<ArrayList<Trip>> getUserTrips() {

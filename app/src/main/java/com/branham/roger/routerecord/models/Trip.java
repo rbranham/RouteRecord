@@ -1,10 +1,6 @@
 package com.branham.roger.routerecord.models;
 
 
-import android.os.Parcelable;
-import android.support.annotation.StringRes;
-
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.ServerTimestamp;
 
@@ -29,12 +25,16 @@ public class Trip{
     private String trip_name;
     private String job_type;
     private String creator;
+    private String driver;
     private String date;
     private @ServerTimestamp Date time_created;
     private float hours;
     private float miles;
     private int bus_num;
-    //private boolean isCompleted;
+
+    //TODO: Test new booleans
+    private boolean isCompleted;
+    private boolean isAvailable;
 
 /*
     private String name;
@@ -46,7 +46,7 @@ public class Trip{
 */
 
 
-    public Trip(String trip_name, String job_type, String date, Date time_created, float hours, float miles, int bus_num){
+    public Trip(String trip_name, String job_type, String date, Date time_created, float hours, float miles, int bus_num, boolean isCompleted, boolean isAvailable){
         this.trip_name = trip_name;
         this.job_type = job_type;
         this.date = date;
@@ -54,6 +54,8 @@ public class Trip{
         this.hours = hours;
         this.miles = miles;
         this.bus_num = bus_num;
+        this.isCompleted = isCompleted;
+        this.isAvailable = isAvailable;
     }
 
     public Trip(){
@@ -122,11 +124,23 @@ public class Trip{
         this.creator = creator;
     }
 
+    public void setDriver(String driver) {
+        this.driver = driver;
+    }
+
     public Date getTime_created() {
         return time_created;
     }
 
     public void setTime_created(Date time_created) {
         this.time_created = time_created;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 }
