@@ -120,6 +120,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //open future trips
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FutureTripsFragment()).commit();
                 break;
+            case R.id.nav_available_trips:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AvailableTripsFragment()).commit();
+                break;
             case R.id.nav_stats:
                 //open stats
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StatsFragment()).commit();

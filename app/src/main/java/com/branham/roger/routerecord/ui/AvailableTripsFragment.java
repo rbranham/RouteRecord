@@ -11,28 +11,28 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.branham.roger.routerecord.R;
-import com.branham.roger.routerecord.viewmodels.FutureTripsViewModel;
+import com.branham.roger.routerecord.viewmodels.AvailableTripsViewModel;
 
-public class FutureTripsFragment extends Fragment {
+public class AvailableTripsFragment extends Fragment {
 
-    private static final String TAG = "FutureTripsFragment";
+    private static final String TAG = "AvailableTripsFragment";
 
-    private FutureTripsViewModel mViewModel;
+    private AvailableTripsViewModel mViewModel;
 
-    public static FutureTripsFragment newInstance() {
-        return new FutureTripsFragment();
+    public static AvailableTripsFragment newInstance() {
+        return new AvailableTripsFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.future_trips_fragment, container, false);
+        return inflater.inflate(R.layout.available_trips_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(FutureTripsViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(AvailableTripsViewModel.class);
         // TODO: Use the ViewModel
     }
 
@@ -40,4 +40,5 @@ public class FutureTripsFragment extends Fragment {
         Log.d(TAG, "initRecyclerView: ");
         //TODO: Set up RecyclerView
     }
+
 }
