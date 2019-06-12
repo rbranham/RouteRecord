@@ -26,10 +26,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static final int RC_SIGN_IN = 1;
 
+    //widgets
     private DrawerLayout drawer;
+
+    //vars
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-    FirebaseUser mUser;
+    private FirebaseUser mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,35 +62,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //Load initial fragment code here
         }
 
+
         // Choose authentication providers
         final List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build());
-
-
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null){
-                    //User is signed in
+                    //LocalUser is signed in
                     onSignedInInitialize(user);
                     Toast.makeText(MainActivity.this, "You're signed in", Toast.LENGTH_SHORT).show();
                 } else {
-                    //User is signed out
+                    //LocalUser is signed out
                     onSignedOutCleanup();
                     startActivityForResult(
                             AuthUI.getInstance()
-                                .createSignInIntentBuilder()
-                                .setIsSmartLockEnabled(false)
-                                .setAvailableProviders(providers)
-                            .build(),
-                        RC_SIGN_IN);
+                                    .createSignInIntentBuilder()
+                                    .setIsSmartLockEnabled(false)
+                                    .setAvailableProviders(providers)
+                                    .build(),
+                            RC_SIGN_IN);
 
                 }
             }
         };
+
 
     }
 
@@ -146,4 +149,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //TODO: Finish Sign out
         FirebaseAuth.getInstance().signOut();// After Signing out, then back in in the same session doesn't work
     }
+
+
 }

@@ -98,12 +98,12 @@ public class AddTripFragment extends Fragment implements DatePickerDialog.OnDate
 
     /**function to pull data from all of the input fields*/
     private void pullDataFromFields(){
-        Trip trip;
+        Trip trip = new Trip();
 
         //Pull Name field
         String name = mNameTextField.getText().toString().trim();
         if(name.length() > 0){
-            trip = new Trip(name);
+            trip.setTripName(name);
         } else {
             Log.w(TAG, "Trip input field empty");
             Toast.makeText(mView.getContext(), "Name text field must be filled out", Toast.LENGTH_SHORT).show();
