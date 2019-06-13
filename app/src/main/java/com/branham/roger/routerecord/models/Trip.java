@@ -8,7 +8,7 @@ import java.util.Date;
 
 
 @IgnoreExtraProperties
-public class Trip{
+public class Trip {
 
     //Job Type Variables //Currently not used
     public static final int REGULAR_ROUTE_JOB_TYPE = 0;
@@ -19,7 +19,6 @@ public class Trip{
     //Job Type Variables
     //TODO: Get type Variables from String resources files
     //String[] myArray = getResources().getStringArray(R.array.trip_type_array);
-
 
 
     private String trip_name;
@@ -46,7 +45,7 @@ public class Trip{
 */
 
 
-    public Trip(String trip_name, String job_type, String date, Date time_created, float hours, float miles, int bus_num, boolean isCompleted, boolean isAvailable){
+    public Trip(String trip_name, String job_type, String date, Date time_created, float hours, float miles, int bus_num, boolean isCompleted, boolean isAvailable) {
         this.trip_name = trip_name;
         this.job_type = job_type;
         this.date = date;
@@ -58,7 +57,7 @@ public class Trip{
         this.isAvailable = isAvailable;
     }
 
-    public Trip(){
+    public Trip() {
         //Empty trip constructor
     }
 
@@ -142,5 +141,17 @@ public class Trip{
 
     public void setAvailable(boolean available) {
         isAvailable = available;
+    }
+
+    public String getDriver() {
+        return driver;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
     }
 }

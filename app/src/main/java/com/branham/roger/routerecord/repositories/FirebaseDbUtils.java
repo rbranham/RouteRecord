@@ -85,7 +85,7 @@ public class FirebaseDbUtils {
         final MutableLiveData<ArrayList<Trip>> data = new MutableLiveData<>();
 
         db.collection(TripContract.tripDB.COLLECTION_NAME)
-                .whereEqualTo("creator", FirebaseAuth.getInstance().getCurrentUser().getUid() ) //TODO: make fields acseciable from one place, either string resourse or constants in class
+                .whereEqualTo("driver", FirebaseAuth.getInstance().getCurrentUser().getUid() ) //TODO: make fields acseciable from one place, either string resourse or constants in class
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

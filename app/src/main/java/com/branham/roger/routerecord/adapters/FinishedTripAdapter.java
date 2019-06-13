@@ -19,7 +19,6 @@ public class FinishedTripAdapter extends RecyclerView.Adapter<FinishedTripAdapte
 
     private static final String TAG = "FinishedTripAdapter";
 
-    //TODO: Stopped at 11:35ish in coding with Mitch Recyclerview Tutorial
     private ArrayList<Trip> mTrips = new ArrayList<>();
     private Context mContext;
 
