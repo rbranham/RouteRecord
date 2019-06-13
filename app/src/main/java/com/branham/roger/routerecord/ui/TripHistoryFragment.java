@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.branham.roger.routerecord.R;
 import com.branham.roger.routerecord.models.Trip;
@@ -20,7 +21,7 @@ import com.branham.roger.routerecord.viewmodels.TripHistoryViewModel;
 
 import java.util.ArrayList;
 
-public class TripHistoryFragment extends Fragment {
+public class TripHistoryFragment extends Fragment implements FinishedTripAdapter.OnTripListener {
 
 
     private static final String TAG = "TripHistoryFragment";
@@ -29,7 +30,6 @@ public class TripHistoryFragment extends Fragment {
 
     //vars
     private View mView;
-    //ArrayList<Trip> mTrips;
     RecyclerView mRecyclerView;
     FinishedTripAdapter mAdapter;
     private TripHistoryViewModel mTripHistoryViewModel;
@@ -45,7 +45,7 @@ public class TripHistoryFragment extends Fragment {
         //FragmentActivity c = getActivity();
         mRecyclerView = mView.findViewById(R.id.trip_history_recycler_view);
 
-        mTripHistoryViewModel = ViewModelProviders.of(this).get(TripHistoryViewModel.class); //TODO: Should this be on overide method onAtivity Created??
+        mTripHistoryViewModel = ViewModelProviders.of(this).get(TripHistoryViewModel.class); //TODO: Should this be on overide method onAtivity Created to make onClick Work??
 
         mTripHistoryViewModel.init();
 
@@ -65,11 +65,15 @@ public class TripHistoryFragment extends Fragment {
 
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView: init recycleview.");
-        mAdapter = new FinishedTripAdapter(mView.getContext(), mTripHistoryViewModel.getTrips().getValue());
+        mAdapter = new FinishedTripAdapter(mView.getContext(), mTripHistoryViewModel.getTrips().getValue(), this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mView.getContext()));
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    @Override
+    public void onTripClick(int position) {
 
+        Toast.makeText(mView.getContext(), "Clicked:" + mTripHistoryViewModel.getTrips().getValue().get(position).getTripName(), Toast.LENGTH_SHORT).show();
+    }
 
 }

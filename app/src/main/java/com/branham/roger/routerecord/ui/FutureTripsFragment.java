@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.branham.roger.routerecord.R;
+import com.branham.roger.routerecord.adapters.FinishedTripAdapter;
 import com.branham.roger.routerecord.viewmodels.FutureTripsViewModel;
 
 public class FutureTripsFragment extends Fragment {
@@ -18,6 +21,11 @@ public class FutureTripsFragment extends Fragment {
     private static final String TAG = "FutureTripsFragment";
 
     private FutureTripsViewModel mViewModel;
+
+    //vars
+    private View mView;
+    RecyclerView mRecyclerView;
+    FinishedTripAdapter mAdapter;
 
     public static FutureTripsFragment newInstance() {
         return new FutureTripsFragment();
@@ -39,5 +47,6 @@ public class FutureTripsFragment extends Fragment {
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: ");
         //TODO: Set up RecyclerView
+
     }
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.branham.roger.routerecord.R;
 import com.branham.roger.routerecord.models.Trip;
@@ -21,18 +22,19 @@ public class FinishedTripAdapter extends RecyclerView.Adapter<FinishedTripAdapte
 
     private ArrayList<Trip> mTrips = new ArrayList<>();
     private Context mContext;
+    private OnTripListener mOnTripListener;
 
-    public FinishedTripAdapter(Context context, ArrayList<Trip> tripList){
+    public FinishedTripAdapter(Context context, ArrayList<Trip> tripList, OnTripListener onTripListener){
         mTrips = tripList;
         mContext = context;
-
+        this.mOnTripListener = onTripListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = (View) LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.job_list_item_view, viewGroup, false);
-        ViewHolder holder = new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view, mOnTripListener);
         return holder;
     }
 
@@ -46,16 +48,6 @@ public class FinishedTripAdapter extends RecyclerView.Adapter<FinishedTripAdapte
         viewHolder.tripName.setText(mTrips.get(i).getTripName());
         viewHolder.miles.setText(Float.toString(mTrips.get(i).getMiles()));
 
-
-        /*viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on: " + mTrips.get(viewHolder.getAdapterPosition()).getTripName());
-
-                Toast.makeText(mContext, mTrips.get(viewHolder.getAdapterPosition()).getTripName(), Toast.LENGTH_SHORT).show();
-            }
-        });
-         *///null object error?
     }
 
     @Override
@@ -63,20 +55,33 @@ public class FinishedTripAdapter extends RecyclerView.Adapter<FinishedTripAdapte
         return mTrips.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tripName, date, hours, miles;
-        RelativeLayout parentLayout;
+        //RelativeLayout parentLayout;
+        OnTripListener onTripListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnTripListener onTripListener) {
             super(itemView);
 
             tripName = itemView.findViewById(R.id.name_view);
             date = itemView.findViewById(R.id.date_view);
             hours = itemView.findViewById(R.id.hours_view);
             miles = itemView.findViewById(R.id.miles_view);
-            parentLayout = itemView.findViewById(R.id.trip_history_fragment); //TODO: may want to change this so I can flexible adapter to different views??
+            //parentLayout = itemView.findViewById(R.id.trip_history_fragment); //TODO: may want to change this so I can flexible adapter to different views?? <-- didn't even need it?
 
+            this.onTripListener = onTripListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            onTripListener.onTripClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnTripListener {
+        void onTripClick(int position);
     }
 }

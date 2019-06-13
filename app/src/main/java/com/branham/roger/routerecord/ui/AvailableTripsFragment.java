@@ -5,19 +5,28 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.branham.roger.routerecord.R;
+import com.branham.roger.routerecord.adapters.FinishedTripAdapter;
 import com.branham.roger.routerecord.viewmodels.AvailableTripsViewModel;
+import com.branham.roger.routerecord.viewmodels.TripHistoryViewModel;
 
 public class AvailableTripsFragment extends Fragment {
 
     private static final String TAG = "AvailableTripsFragment";
 
     private AvailableTripsViewModel mViewModel;
+
+    //vars
+    private View mView;
+    RecyclerView mRecyclerView;
+    FinishedTripAdapter mAdapter;
 
     public static AvailableTripsFragment newInstance() {
         return new AvailableTripsFragment();
@@ -36,9 +45,13 @@ public class AvailableTripsFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    /*
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: ");
         //TODO: Set up RecyclerView
+        mAdapter = new FinishedTripAdapter(mView.getContext(), mViewModel.getTrips().getValue());
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mView.getContext()));
+        mRecyclerView.setAdapter(mAdapter);
     }
-
+*/
 }
