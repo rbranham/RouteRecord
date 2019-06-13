@@ -61,7 +61,7 @@ public class TripHistoryFragment extends Fragment implements FinishedTripAdapter
     //TODO: Set on Clicks To open New TripInfoActivity to display full info
 
     private void initRecyclerView(){
-        Log.d(TAG, "initRecyclerView: init recycleview.");
+        Log.d(TAG, "initRecyclerView: init recycler view.");
         mAdapter = new FinishedTripAdapter(mView.getContext(), mTripHistoryViewModel.getTrips().getValue(), this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mView.getContext()));
         mRecyclerView.setAdapter(mAdapter);
@@ -70,7 +70,7 @@ public class TripHistoryFragment extends Fragment implements FinishedTripAdapter
     @Override
     public void onTripClick(int position) {
         //RecyclerView OnClickListener(Best Practice Way) - Coding with Mitch <-- Look here to see how to open an activity with this
-        //TODO: Open an activity///Fragment??/// for trip detail view
+        //TODO: Open an activity///Fragment??/// for trip detail view // To pass Trip need to make trip model parcable
         Toast.makeText(mView.getContext(), "Clicked:" + mTripHistoryViewModel.getTrips().getValue().get(position).getTripName(), Toast.LENGTH_SHORT).show();
     }
 
