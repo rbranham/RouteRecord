@@ -38,9 +38,6 @@ public class TripHistoryFragment extends Fragment implements FinishedTripAdapter
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        //Sample Array List Population
-        //mTrips = sampleData();
-
         mView = inflater.inflate(R.layout.fragment_trip_history,container,false);
         //FragmentActivity c = getActivity();
         mRecyclerView = mView.findViewById(R.id.trip_history_recycler_view);
@@ -72,7 +69,8 @@ public class TripHistoryFragment extends Fragment implements FinishedTripAdapter
 
     @Override
     public void onTripClick(int position) {
-
+        //RecyclerView OnClickListener(Best Practice Way) - Coding with Mitch <-- Look here to see how to open an activity with this
+        //TODO: Open an activity///Fragment??/// for trip detail view
         Toast.makeText(mView.getContext(), "Clicked:" + mTripHistoryViewModel.getTrips().getValue().get(position).getTripName(), Toast.LENGTH_SHORT).show();
     }
 
