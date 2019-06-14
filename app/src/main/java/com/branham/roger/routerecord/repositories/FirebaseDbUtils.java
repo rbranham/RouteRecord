@@ -34,13 +34,12 @@ public class FirebaseDbUtils {
 
 
     /**Function to add already completed trip to FireStore Db */
-    public static void addCompletedTrip(Trip trip) {
+    public static void addNewCompletedTrip(Trip trip) {
 
         //This add trip only works for when driver adds own trip
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         trip.setCreator(userID);
-        trip.setDriver(userID);
-
+        trip.setDriver(userID); //Driver and Creator are the same
         trip.setTime_created(null);
 
         addTrip(trip);
@@ -49,13 +48,13 @@ public class FirebaseDbUtils {
 
     /**Function to add uncompleted trip to database*/
     public static void addAvailibleTrip(Trip trip) {
-        //TODO: add rest of boilerplate code from above
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         trip.setCreator(userID);
         trip.setDriver(null); //No Driver yet
+        trip.setTime_created(null);
 
-        //TODO: move rest of boilerplate code to new helper function
+        addTrip(trip);
     }
 
     private static void addTrip(Trip trip){

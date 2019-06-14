@@ -153,7 +153,7 @@ public class AddTripFragment extends Fragment implements DatePickerDialog.OnDate
         trip.setDate(currentDateString);
 
         //Insert into Database
-        FirebaseDbUtils.addCompletedTrip(trip); //TODO: Get confirmation?
+        FirebaseDbUtils.addNewCompletedTrip(trip); //TODO: Get confirmation?
 
         //clear input fields
         clearFields();
