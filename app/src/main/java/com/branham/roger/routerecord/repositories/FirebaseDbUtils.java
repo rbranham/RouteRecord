@@ -161,6 +161,42 @@ public class FirebaseDbUtils {
         return data;
     }
 
+    public static MutableLiveData<ArrayList<Trip>> getAvailableTrips(){
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        setSettings(db);
+
+        Log.d(TAG, "getUserTrips: called");
+        final ArrayList<Trip> dataSet = new ArrayList<>();
+        final MutableLiveData<ArrayList<Trip>> data = new MutableLiveData<>();
+
+        db.collection(TripContract.tripDB.COLLECTION_NAME)
+                .whereEqualTo("available", true ) //TODO: make fields assessable from one place, either string resourse or constants in class
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG,  document.getId() + " => " + document.getData());
+                                Trip tempTrip = document.toObject(Trip.class);
+                                dataSet.add(tempTrip);
+
+                            }
+                        } else {
+                            Log.d(TAG, "getUserTrips: Error getting documents: ", task.getException());
+                        }
+
+                        data.setValue(dataSet);
+                    }
+                });
+
+        data.setValue(dataSet); //Initially gets returned empty until live data get updated and finished
+
+        return data;
+    }
+
     /**
      * Quick method to set settings of FireStore to cache data
      *  TODO: There has to be a better way to do this rather than calling everytime an instance of the db is called... Maybe on Sign in??
