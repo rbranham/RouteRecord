@@ -28,6 +28,10 @@
             android:id="@+id/nav_stats"
             android:icon="@drawable/ic_stats"
             android:title="Stats" />
+
+        <item android:id="@+id/nav_add_future_trip"
+            android:icon="@drawable/ic_future_trips"
+            android:title="Add Future Trip" />
     </group>
 
     <item android:title="Sign Out">
@@ -38,4 +42,5 @@
                 android:title="Sign Out" />
         </menu>
     </item>
+
 </menu>

@@ -127,6 +127,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //open stats
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StatsFragment()).commit();
                 break;
+            case R.id.nav_add_future_trip: //TODO: Remove and have an admin only way to add future trips
+                //open add Future Trip
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InsertFutureTripFragment()).commit();
+                break;
             case R.id.nav_sign_out:
                 onSignedOutCleanup();
                 Toast.makeText(this, "Sign Out", Toast.LENGTH_SHORT).show();
