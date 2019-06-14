@@ -35,12 +35,6 @@ public class FirebaseDbUtils {
 
     /**Function to add already completed trip to FireStore Db */
     public static void addCompletedTrip(Trip trip) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        setSettings(db);
-
-        final DocumentReference newTripRef =
-                db.collection(TripContract.tripDB.COLLECTION_NAME)
-                        .document();
 
         //This add trip only works for when driver adds own trip
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -48,6 +42,29 @@ public class FirebaseDbUtils {
         trip.setDriver(userID);
 
         trip.setTime_created(null);
+
+        addTrip(trip);
+
+    }
+
+    /**Function to add uncompleted trip to database*/
+    public static void addAvailibleTrip(Trip trip) {
+        //TODO: add rest of boilerplate code from above
+
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        trip.setCreator(userID);
+        trip.setDriver(null); //No Driver yet
+
+        //TODO: move rest of boilerplate code to new helper function
+    }
+
+    private static void addTrip(Trip trip){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        setSettings(db);
+
+        final DocumentReference newTripRef =
+                db.collection(TripContract.tripDB.COLLECTION_NAME)
+                        .document();
 
         newTripRef.set(trip).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -61,19 +78,6 @@ public class FirebaseDbUtils {
             }
         });
     }
-
-    /**Function to add uncompleted trip to database*/
-    public static void addAvailibleTrip(Trip trip) {
-        //TODO: add rest of boilerplate code from above
-
-        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        trip.setCreator(userID);
-        trip.setDriver(null); //No Driver yet
-
-        //TODO: move rest of boilerplate code to new helper function
-
-    }
-
 
     /**Function to pull all jobs from user only*/
     public static MutableLiveData<ArrayList<Trip>> getUserTrips() {
