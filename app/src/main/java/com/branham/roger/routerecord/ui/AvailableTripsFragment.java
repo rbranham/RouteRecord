@@ -1,5 +1,6 @@
 package com.branham.roger.routerecord.ui;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,13 +12,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.branham.roger.routerecord.R;
 import com.branham.roger.routerecord.adapters.FinishedTripAdapter;
+import com.branham.roger.routerecord.models.Trip;
 import com.branham.roger.routerecord.viewmodels.AvailableTripsViewModel;
 import com.branham.roger.routerecord.viewmodels.TripHistoryViewModel;
 
-public class AvailableTripsFragment extends Fragment {
+import java.util.ArrayList;
+
+public class AvailableTripsFragment extends Fragment implements FinishedTripAdapter.OnTripListener{
 
     private static final String TAG = "AvailableTripsFragment";
 
@@ -35,23 +40,45 @@ public class AvailableTripsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.available_trips_fragment, container, false);
+        mView = inflater.inflate(R.layout.available_trips_fragment, container, false);
+
+        mRecyclerView = mView.findViewById(R.id.available_trips_recycler_view);
+
+        mViewModel = ViewModelProviders.of(this).get(AvailableTripsViewModel.class);
+
+        mViewModel.init();
+
+        mViewModel.getTrips().observe(this, new Observer<ArrayList<Trip>>() {
+            @Override
+            public void onChanged(@Nullable ArrayList<Trip> trips) {
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+
+        initRecyclerView();
+
+        return mView;
     }
 
+    /*
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(AvailableTripsViewModel.class);
         // TODO: Use the ViewModel
+        initRecyclerView();
     }
+    */
 
-    /*
-    private void initRecyclerView() {
-        Log.d(TAG, "initRecyclerView: ");
-        //TODO: Set up RecyclerView
-        mAdapter = new FinishedTripAdapter(mView.getContext(), mViewModel.getTrips().getValue());
+    private void initRecyclerView(){
+        Log.d(TAG, "initRecyclerView: init recycler view.");
+        mAdapter = new FinishedTripAdapter(mView.getContext(), mViewModel.getTrips().getValue(), this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mView.getContext()));
         mRecyclerView.setAdapter(mAdapter);
     }
-*/
+
+    @Override
+    public void onTripClick(int position) {
+        //Do nothing
+    }
 }

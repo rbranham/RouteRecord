@@ -2,6 +2,7 @@ package com.branham.roger.routerecord.ui;
 
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.branham.roger.routerecord.R;
@@ -23,15 +24,16 @@ import java.util.Calendar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InsertFutureTripFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class InsertFutureTripFragment extends Fragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private static final String TAG = "InsertFutureTripFrag";
 
     private String currentDateString;
+    private String startTimeString;
 
     //Views
     private View mView; //Could be changed to just storing the views context
-    private EditText mDateTextField, mNameTextField;
+    private EditText mDateTextField, mNameTextField, mStartTimeTextField;
     private Button mSubmitButton;
 
     @Override
@@ -43,11 +45,19 @@ public class InsertFutureTripFragment extends Fragment implements DatePickerDial
         mDateTextField = (EditText) mView.findViewById(R.id.input_date);
         mNameTextField = (EditText) mView.findViewById(R.id.input_trip_name);
         mSubmitButton = (Button) mView.findViewById(R.id.button_submit);
+        mStartTimeTextField = (EditText) mView.findViewById(R.id.input_start_time);
 
         //Set onClickListener for Date entry
         mDateTextField.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
                 showDatePickerDialog();
+            }
+        });
+
+        //Set onClickListener for Start Time entry
+        mStartTimeTextField.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                showTimePickerDialog();
             }
         });
 
@@ -82,6 +92,28 @@ public class InsertFutureTripFragment extends Fragment implements DatePickerDial
         mDateTextField.setText(currentDateString);
     }
 
+    /**Function to show Time Picker Dialog*/
+    private void showTimePickerDialog(){
+        TimePickerDialog timePickerDialog = new TimePickerDialog(
+                mView.getContext(),
+                this,
+                Calendar.getInstance().get(Calendar.HOUR_OF_DAY), //TODO: check to see if user already has selected a time and use that as default instead
+                Calendar.getInstance().get(Calendar.MINUTE),
+                true
+                );
+        timePickerDialog.show();
+    }
+
+
+    /**Function to save selected time from user*/
+    @Override
+    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+        startTimeString = hour + ":" + minute;
+        mStartTimeTextField.setText(startTimeString);
+    }
+
+    /**Function saves selected Time from user */
+
     private void pullDataFromFields() {
 
         Trip trip = new Trip();
@@ -101,8 +133,9 @@ public class InsertFutureTripFragment extends Fragment implements DatePickerDial
         }
 
 
-        //push date
+        //push date and start time
         trip.setDate(currentDateString);
+        trip.setStart_time(startTimeString);
 
         //Insert into Database
         FirebaseDbUtils.addAvailibleTrip(trip); //TODO: Get confirmation?
@@ -118,6 +151,7 @@ public class InsertFutureTripFragment extends Fragment implements DatePickerDial
     private void clearFields() {
         mDateTextField.getText().clear();
         mNameTextField.getText().clear();
+        mStartTimeTextField.getText().clear();
     }
 
 }

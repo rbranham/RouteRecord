@@ -26,6 +26,7 @@ public class Trip {
     private String creator;
     private String driver;
     private String date;
+    private String start_time;
     private @ServerTimestamp Date time_created;
     private float hours;
     private float miles;
@@ -153,5 +154,13 @@ public class Trip {
 
     public boolean isAvailable() {
         return isAvailable;
+    }
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
     }
 }

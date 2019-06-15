@@ -22,7 +22,7 @@ public class AvailableTripsViewModel extends ViewModel {
             return;
         }
 
-        //mTrips = FirebaseDbUtils.getUserTrips(); //TODO: Put in correct Db Read
+        mTrips = FirebaseDbUtils.getAvailableTrips();
     }
 
     public LiveData<ArrayList<Trip>> getTrips(){
