@@ -89,7 +89,7 @@ public class Trip {
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.date = date; //TODO: Error Checking and covert to proper format for sortting mm/dd/yyy
     }
 
     public float getHours() {

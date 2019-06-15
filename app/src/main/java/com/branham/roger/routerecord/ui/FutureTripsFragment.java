@@ -11,12 +11,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.branham.roger.routerecord.R;
 import com.branham.roger.routerecord.adapters.FinishedTripAdapter;
 import com.branham.roger.routerecord.viewmodels.FutureTripsViewModel;
 
-public class FutureTripsFragment extends Fragment {
+public class FutureTripsFragment extends Fragment implements FinishedTripAdapter.OnTripListener{
 
     private static final String TAG = "FutureTripsFragment";
 
@@ -48,5 +49,11 @@ public class FutureTripsFragment extends Fragment {
         Log.d(TAG, "initRecyclerView: ");
         //TODO: Set up RecyclerView
 
+    }
+
+    @Override
+    public void onTripClick(int position) {
+        //TODO: Prompt Dialog to add Trip or Remove trip
+        Toast.makeText(mView.getContext(), "Clicked:" + mViewModel.getTrips().getValue().get(position).getTripName(), Toast.LENGTH_SHORT).show();
     }
 }

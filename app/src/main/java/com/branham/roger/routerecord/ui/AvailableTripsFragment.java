@@ -79,6 +79,7 @@ public class AvailableTripsFragment extends Fragment implements FinishedTripAdap
 
     @Override
     public void onTripClick(int position) {
-        //Do nothing
+        //TODO: Prompt Dialog to accept trip
+        Toast.makeText(mView.getContext(), "Clicked:" + mViewModel.getTrips().getValue().get(position).getTripName(), Toast.LENGTH_SHORT).show();
     }
 }

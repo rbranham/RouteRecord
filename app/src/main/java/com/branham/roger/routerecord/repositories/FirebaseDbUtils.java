@@ -14,6 +14,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -89,6 +90,7 @@ public class FirebaseDbUtils {
 
         db.collection(TripContract.tripDB.COLLECTION_NAME)
                 .whereEqualTo("driver", FirebaseAuth.getInstance().getCurrentUser().getUid() ) //TODO: make fields acseciable from one place, either string resourse or constants in class
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -172,6 +174,7 @@ public class FirebaseDbUtils {
 
         db.collection(TripContract.tripDB.COLLECTION_NAME)
                 .whereEqualTo("available", true ) //TODO: make fields assessable from one place, either string resourse or constants in class
+                .orderBy("date", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
